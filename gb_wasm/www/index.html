@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Rust Game Boy</title>
+  <style>
+    body {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: "Lucida Console", "Courier New", monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+  <div style="display: flex;flex-direction: column">
+    <canvas id="screen-canvas"></canvas>
+    <button id="debug-btn">Debug</button>
+  </div>
+  <div id="debug-div">
+    <div>
+      <div style="padding-left:15px;padding-top:15px;"><b>CPU</b></div>
+      <table style="padding:15px;">
+        <tr>
+          <td style="padding-right:10px;" id="cpu-a">A: 00</td>
+          <td style="padding-right:10px;" id="cpu-hl"><b>HL:</b> 0000</td>
+          <td style="padding-right:10px;" id="cpu-sp">SP: 0000</td>
+          <td style="padding-right:10px;" id="cpu-pc">PC: 0000</td>
+        </tr>
+        <tr>
+          <td id="cpu-b">B: 00</td>
+          <td id="cpu-c">C: 00</td>
+          <td id="cpu-d">D: 00</td>
+          <td id="cpu-e">E: 00</td>
+        </tr>
+        <tr>
+          <td id="cpu-fc">c: 0</td>
+          <td id="cpu-fhc">hc: 0</td>
+          <td id="cpu-fs">sub: 0</td>
+          <td id="cpu-fz">z: 0</td>
+        </tr>
+      </table>
+    </div>
+    <div style="padding-left:15px;padding-top:15px;"><b>Memory</b></div>
+    <div id="memory" style="width:350px;height:32em;overflow:auto;padding:15px;"></div>
+    <button id="pause-btn">Pause</button>
+    <button id="next-frame-btn">Next Frame</button>
+    <button id="next-instr-btn">Next Instruction</button>
+  </div>
+  <script src="./bootstrap.js"></script>
+</body>
+
+</html>

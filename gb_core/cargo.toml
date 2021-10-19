@@ -1,0 +1,9 @@
+[package]
+name = "gb_core"
+version = "0.1.0"
+edition = "2021"
+
+[unstable]
+mixed_integer_ops = true
+
+[dependencies]

@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "gb_core",
+    "gb_minifb",
+    "gb_wasm"
+]
