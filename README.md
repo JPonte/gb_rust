@@ -16,7 +16,6 @@ npm run start
 ```
 
 ### TODOs:
- - Window overlay
  - Timer and Divider Registers/Interrupts
  - Proper sprite transparency
  - MBC 2 to 7

@@ -36,7 +36,7 @@ impl PPU {
                 self.total_cycles = 0;
 
                 inc_ly(addr_space);
-                if ly(addr_space) == 143 {
+                if ly(addr_space) == 144 {
                     self.set_gpu_mode(1, addr_space);
                     return true;
                 } else {
@@ -122,6 +122,8 @@ fn scanline(addr_space: &AddrSpace, pixels: &mut [u32; 160 * 144]) {
     let scroll_x = addr_space.read(SCX_ADDR) as u16;
     let h_line = addr_space.read(LY_ADDR) as u16;
     let bg_palette = palette(addr_space.read(BG_PALETTE_ADDR), false);
+    let window_y = addr_space.read(WY_ADDR) as i16;
+    let window_x = addr_space.read(WX_ADDR) as i16;
 
     let y = (h_line + scroll_y) % 256;
     for x in 0..160 {
@@ -135,6 +137,24 @@ fn scanline(addr_space: &AddrSpace, pixels: &mut [u32; 160 * 144]) {
         let pix = double_byte_to_pixels(b1, b2, &bg_palette);
 
         pixels[(h_line * 160 + x) as usize] = pix[sprite_x as usize];
+
+        if lcdc & (1 << 5) > 0 {
+            let y = h_line as i16 - window_y;
+            if y >= 0 && y <= 144 {
+                let sprite_x = (x as i16) - window_x + 7;
+                if sprite_x >= 0 && sprite_x <= 160 {
+                    let tile_index = ((y / 8) * 32 + (sprite_x / 8)) as u16;
+                    let sprite_y = (y % 8) as u16;
+
+                    let tile = addr_space.read(TILE_MAP_ADDR_2 + tile_index);
+                    let b1 = addr_space.read(bg_tiles_addr(lcdc, tile, sprite_y * 2));
+                    let b2 = addr_space.read(bg_tiles_addr(lcdc, tile, 1 + sprite_y * 2));
+                    let pix = double_byte_to_pixels(b1, b2, &bg_palette);
+
+                    pixels[(h_line * 160 + x as u16) as usize] = pix[(sprite_x % 8) as usize];
+                }
+            }
+        }
     }
 
     let obj_size = if lcdc & 0x4 > 0 { 16 } else { 8 };

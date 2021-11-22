@@ -5,6 +5,8 @@ pub const LCDC_ADDR: u16 = 0xFF40;
 pub const LCD_STAT_ADDR: u16 = 0xFF41;
 pub const SCY_ADDR: u16 = 0xFF42;
 pub const SCX_ADDR: u16 = 0xFF43;
+pub const WY_ADDR: u16 = 0xFF4A;
+pub const WX_ADDR: u16 = 0xFF4B;
 pub const LY_ADDR: u16 = 0xFF44;
 pub const LYC_ADDR: u16 = 0xFF45;
 pub const BG_PALETTE_ADDR: u16 = 0xFF47;
@@ -16,6 +18,7 @@ pub const IE_ADDR: u16 = 0xFFFF;
 pub const IF_ADDR: u16 = 0xFF0F;
 pub const JOYPAD_ADDR: u16 = 0xFF00;
 pub const TILE_MAP_ADDR: u16 = 0x9800;
+pub const TILE_MAP_ADDR_2: u16 = 0x9C00;
 
 pub const DMG: [u8; 0x100] = [
     0x31, 0xfe, 0xff, 0xaf, 0x21, 0xff, 0x9f, 0x32, 0xcb, 0x7c, 0x20, 0xfb, 0x21, 0x26, 0xff, 0x0e,
