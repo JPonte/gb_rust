@@ -180,7 +180,7 @@ impl CPU {
             l: 0x4D,
             f: 0x80,
             sp: 0xFFFE,
-            pc: 0x0100,
+            pc: 0x0000,
             ime: false,
             schedule_ime: false,
         }

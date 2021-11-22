@@ -57,6 +57,13 @@ impl GameBoy {
         }
     }
 
+    pub fn reset(&mut self) {
+        self.cpu = CPU::new();
+        self.ppu = PPU::new();
+        self.joypad_state = JoypadState::new();
+        self.addr_space.reset();
+    }
+
     pub fn tick(&mut self) {
         let mut vblank = false;
         while !vblank {

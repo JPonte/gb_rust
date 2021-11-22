@@ -137,10 +137,29 @@ impl AddrSpace {
         }
     }
 
+    pub fn reset(&mut self) {
+        self.bank0 = [0; 0x4000];
+        self.bank1 = [0; 0x4000];
+        self.video_ram = [0x00; 0x2000];
+        self.external_ram = [0; 0x2000];
+        self.work_ram1 = [0; 0x1000];
+        self.work_ram2 = [0; 0x1000];
+        self.sprite_table = [0; 0xA0];
+        self.io_registers = [0; 0x80];
+        self.hram = [0; 0x7F];
+        self.interrupt_enable_register = 0;
+        self.memory_model = 0;
+        self.rom_bank = 0;
+        self.running_bios = true;
+        self.load_cartridge_head();
+    }
+
     // Cartridge info
 
     pub fn game_title(&self) -> String {
-        std::str::from_utf8(&self.bank0[0x134..=0x142]).unwrap().replace(0 as char, "")
+        std::str::from_utf8(&self.bank0[0x134..=0x142])
+            .unwrap()
+            .replace(0 as char, "")
     }
 
     pub fn is_color_gb(&self) -> bool {

@@ -29,6 +29,7 @@ var debug = false;
 var paused = false;
 const debugBtn = document.getElementById('debug-btn');
 const pauseBtn = document.getElementById('pause-btn');
+const resetBtn = document.getElementById('reset-btn');
 const nextFrameBtn = document.getElementById('next-frame-btn');
 const nextInstrBtn = document.getElementById('next-instr-btn');
 
@@ -59,7 +60,11 @@ fetch("/super_mario.gb")
             gameBoy.instr_tick();
             drawBorder();
             drawCells();
-        };        
+        };
+        
+        resetBtn.onclick = function () {
+            gameBoy.reset();
+        };
 
         const renderLoop = () => {
             if (!paused) {
